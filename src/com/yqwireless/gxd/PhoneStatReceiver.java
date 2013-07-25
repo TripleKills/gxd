@@ -12,7 +12,6 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.MeasureSpec;
 import android.view.View.OnTouchListener;
 import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
@@ -110,7 +109,6 @@ public class PhoneStatReceiver extends BroadcastReceiver {
 		private float mTouchStartY;
 		private float x;
 		private float y;
-		private long cur_time = -1;
 
 		public ShowArea(Context context) {
 			this.context = context;
@@ -121,8 +119,10 @@ public class PhoneStatReceiver extends BroadcastReceiver {
 			// 构建显示内容
 			tv = new TextView(context);
 			tv.setTextSize(25);
-			tv.setTextColor(context.getResources().getColor(android.R.color.white));
-			tv.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.call_frame));
+			tv.setTextColor(context.getResources().getColor(
+					android.R.color.white));
+			tv.setBackgroundDrawable(context.getResources().getDrawable(
+					R.drawable.call_frame));
 			// 得到连接
 			helper = DBHelper.getInstance(context);
 			String incomingNumber = param[0];
@@ -161,7 +161,7 @@ public class PhoneStatReceiver extends BroadcastReceiver {
 		protected void onPostExecute(TextView textView) {
 			wm = (WindowManager) context.getApplicationContext()
 					.getSystemService(Context.WINDOW_SERVICE);
-			
+
 			params = new WindowManager.LayoutParams();
 			params.type = LayoutParams.TYPE_PHONE;
 			params.flags = LayoutParams.FLAG_NOT_TOUCH_MODAL
@@ -199,8 +199,8 @@ public class PhoneStatReceiver extends BroadcastReceiver {
 
 			// 显示
 			wm.addView(tv, params);
-			
-			int screenWidth  = wm.getDefaultDisplay().getWidth();
+
+			int screenWidth = wm.getDefaultDisplay().getWidth();
 			int screenHeight = wm.getDefaultDisplay().getHeight();
 			x = screenWidth / 4;
 			y = screenHeight / 3;
@@ -208,8 +208,7 @@ public class PhoneStatReceiver extends BroadcastReceiver {
 			updateViewPosition();
 			textView.removeCallbacks(dismiss);
 			textView.postDelayed(dismiss, 10000);
-			
-			
+
 		}
 
 		private void updateViewPosition() {
