@@ -5,6 +5,9 @@ import java.util.Locale;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -40,17 +43,17 @@ public class MainActivity extends Activity {
 		helper = DBHelper.getInstance(this);
 
 		FeedbackAgent agent = new FeedbackAgent(this);
-	    agent.sync();
-	    
-	    UmengUpdateAgent.update(this);
+		agent.sync();
+
+		UmengUpdateAgent.update(this);
 	}
-	
+
 	@Override
 	protected void onResume() {
 		MobclickAgent.onResume(this);
 		super.onResume();
 	}
-	
+
 	@Override
 	protected void onPause() {
 		MobclickAgent.onPause(this);
@@ -76,49 +79,68 @@ public class MainActivity extends Activity {
 			LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
 			final View dialog_view = inflater.inflate(R.layout.dialog_view,
 					null);
+			TextView about_text_versoin = (TextView) dialog_view
+					.findViewById(R.id.about_text_version);
+			String about_version = getString(R.string.about_version);
+			about_version = about_version.replace("1.0", "   "+ getVersionName());
+			about_text_versoin.setText(about_version);
 			new AlertDialog.Builder(this).setTitle(R.string.action_about)
 					.setIcon(android.R.drawable.ic_dialog_info)
 					.setView(dialog_view).setPositiveButton("确定", null).show();
 			break;
 		case R.id.action_feedback:
 			FeedbackAgent agent = new FeedbackAgent(this);
-            agent.startFeedbackActivity();
+			agent.startFeedbackActivity();
 			break;
 		case R.id.action_check_update:
 			UmengUpdateListener updateListener = new UmengUpdateListener() {
-    			@Override
-    			public void onUpdateReturned(int updateStatus,
-    					UpdateResponse updateInfo) {
-    				Log.i("--->", "callback result =>" + updateStatus);
-    				switch (updateStatus) {
-    				
-    				case 0: // has update
-    					UmengUpdateAgent.showUpdateDialog(MainActivity.this, updateInfo);
-    					break;
-    				case 1: // has no update
-    					Toast.makeText(MainActivity.this, "已是最新版本", Toast.LENGTH_SHORT)
-    							.show();
-    					break;
-    				case 2: // none wifi
-    	                Toast.makeText(MainActivity.this, "没有wifi连接， 只在wifi下更新", Toast.LENGTH_SHORT)
-    	                        .show();
-    	                break;
-    	            case 3: // time out
-    	                Toast.makeText(MainActivity.this, "检查更新超时", Toast.LENGTH_SHORT)
-    	                        .show();
-    	                break;
-    				}
+				@Override
+				public void onUpdateReturned(int updateStatus,
+						UpdateResponse updateInfo) {
+					Log.i("--->", "callback result =>" + updateStatus);
+					switch (updateStatus) {
 
-    			}
-    		};
-        	UmengUpdateAgent.update(this);
-        	UmengUpdateAgent.setUpdateAutoPopup(false);
-        	UmengUpdateAgent.setUpdateListener(updateListener);
-        	Toast.makeText(this, "正在检查更新...", Toast.LENGTH_SHORT)
-			.show();
+					case 0: // has update
+						UmengUpdateAgent.showUpdateDialog(MainActivity.this,
+								updateInfo);
+						break;
+					case 1: // has no update
+						Toast.makeText(MainActivity.this, "已是最新版本",
+								Toast.LENGTH_SHORT).show();
+						break;
+					case 2: // none wifi
+						Toast.makeText(MainActivity.this,
+								"没有wifi连接， 只在wifi下更新", Toast.LENGTH_SHORT)
+								.show();
+						break;
+					case 3: // time out
+						Toast.makeText(MainActivity.this, "检查更新超时",
+								Toast.LENGTH_SHORT).show();
+						break;
+					}
+
+				}
+			};
+			UmengUpdateAgent.update(this);
+			UmengUpdateAgent.setUpdateAutoPopup(false);
+			UmengUpdateAgent.setUpdateListener(updateListener);
+			Toast.makeText(this, "正在检查更新...", Toast.LENGTH_SHORT).show();
 			break;
 		}
 		return true;
+	}
+
+	private String getVersionName() {
+		PackageManager packageManager = getPackageManager();
+		PackageInfo packInfo;
+		try {
+			packInfo = packageManager.getPackageInfo(getPackageName(), 0);
+			String version = packInfo.versionName;
+			return version;
+		} catch (NameNotFoundException e) {
+			return "1.0";
+		}
+
 	}
 
 	public void onBtnClick(View view) {
@@ -181,11 +203,9 @@ public class MainActivity extends Activity {
 		PhoneArea phoneArea;
 		if ((phoneArea = helper.findPhoneArea(new String[] { phoneNumber
 				.toString() })) != null) {
-
 			show_text.setText(phoneArea.getArea());
-
-		} else
+		} else {
 			show_text.setText(R.string.none_area);
-
+		}
 	}
 }

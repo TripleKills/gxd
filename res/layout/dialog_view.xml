@@ -2,14 +2,29 @@
     android:id="@+id/layout_root"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical" 
+    android:padding="10dip">
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/about_text_version"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:autoLink="all"
-        android:text="@string/about_summary"
+        android:text="@string/about_version"
+        android:textSize="20sp" />
+    
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:autoLink="all"
+        android:text="@string/about_email"
+        android:textSize="20sp" />
+    
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:autoLink="all"
+        android:text="@string/about_weibo"
         android:textSize="20sp" />
 
 </LinearLayout>
