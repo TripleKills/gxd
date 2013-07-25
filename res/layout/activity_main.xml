@@ -1,12 +1,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     tools:context=".MainActivity" >
 
     <LinearLayout
             android:id="@+id/input_bar"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="46dip"
             android:layout_marginTop="2dip"
             android:layout_marginBottom="2dip"
@@ -17,7 +17,7 @@
                 android:id="@+id/digits"
                 android:layout_width="0dip"
                 android:layout_weight="1"
-                android:layout_height="match_parent"
+                android:layout_height="fill_parent"
                 android:gravity="center"
                 android:scrollHorizontally="true"
                 android:textAppearance="@style/DigitsTextAppearance"
@@ -28,7 +28,7 @@
         <ImageButton
                 android:id="@+id/deleteButton"
                 android:layout_width="56dip"
-                android:layout_height="match_parent"
+                android:layout_height="fill_parent"
                 android:layout_gravity="center_vertical"
                 android:gravity="center"
                 android:state_enabled="false"
@@ -47,7 +47,7 @@
 
     <TextView
         android:id="@+id/show_text"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:gravity="center"
