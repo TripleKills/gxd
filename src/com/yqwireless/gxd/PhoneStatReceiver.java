@@ -51,6 +51,7 @@ public class PhoneStatReceiver extends BroadcastReceiver {
 				incomingFlag = false;
 				String phoneNumber = intent
 						.getStringExtra(Intent.EXTRA_PHONE_NUMBER);
+				Log.i(TAG, "CALL OUT2: " + phoneNumber);
 				Log.i(TAG, "CALL OUT: " + phoneNumber);
 				if (view_area_call_out)
 					new ShowArea(context).execute(phoneNumber);
@@ -110,6 +111,8 @@ public class PhoneStatReceiver extends BroadcastReceiver {
 			//得到连接
 			helper = DBHelper.getInstance(context);
 			String incomingNumber = param[0];
+			if (checkOperators(incomingNumber))
+				return tv;
 			PhoneArea phoneArea;
 			if ((incomingNumber != null && incomingNumber.length() >= 7)
 					&& ((phoneArea = helper.findPhoneArea((incomingNumber)
@@ -119,6 +122,24 @@ public class PhoneStatReceiver extends BroadcastReceiver {
 				tv.setText(R.string.none_area);
 			}
 			return tv;
+		}
+		
+		private boolean checkOperators(String incoming) {
+			if (null == incoming || incoming.length() != 5)
+				return false;
+			String area = null;
+			if ("10086".equals(incoming)) {
+				area = "中国移动";
+			} else if ("10010".equals(incoming)) {
+				area = "中国联通";
+			} else if ("10000".equals(incoming)) {
+				area = "中国电信";
+			}
+			if (null == area) {
+				return false;
+			}
+			tv.setText(area);
+			return true;
 		}
 
 		@Override
@@ -142,6 +163,15 @@ public class PhoneStatReceiver extends BroadcastReceiver {
 			params.format = PixelFormat.RGBA_8888;
 			//显示
 			wm.addView(tv, params);
+			
+			textView.postDelayed(new Runnable() {
+				
+				@Override
+				public void run() {
+					if (wm != null && null != tv && tv.getParent() != null)
+						wm.removeView(tv);
+				}
+			}, 7000);
 		}
 	}
 
