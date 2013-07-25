@@ -79,7 +79,7 @@ public class PhoneStatReceiver extends BroadcastReceiver {
 				case TelephonyManager.CALL_STATE_IDLE:
 					Log.i(TAG, "CALL IDLE");
 					try {
-						if (wm != null)
+						if (wm != null && tv.getParent() != null)
 							wm.removeView(tv);
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -164,15 +164,18 @@ public class PhoneStatReceiver extends BroadcastReceiver {
 			//显示
 			wm.addView(tv, params);
 			
-			textView.postDelayed(new Runnable() {
-				
-				@Override
-				public void run() {
-					if (wm != null && null != tv && tv.getParent() != null)
-						wm.removeView(tv);
-				}
-			}, 7000);
+			textView.removeCallbacks(dismiss);
+			textView.postDelayed(dismiss, 7000);
 		}
+		
+		private Runnable dismiss = new Runnable() {
+			
+			@Override
+			public void run() {
+				if (wm != null && null != tv && tv.getParent() != null)
+					wm.removeView(tv);
+			}
+		};
 	}
 
 }
