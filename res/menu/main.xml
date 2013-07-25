@@ -6,6 +6,16 @@
         android:title="@string/action_settings"/>
      <item
         android:id="@+id/action_about"
-        android:orderInCategory="103"
+        android:orderInCategory="102"
         android:title="@string/action_about"/>
+     
+     <item
+        android:id="@+id/action_feedback"
+        android:orderInCategory="103"
+        android:title="@string/action_feedback"/>
+     
+     <item
+        android:id="@+id/action_check_update"
+        android:orderInCategory="104"
+        android:title="@string/action_check_update"/>
 </menu>

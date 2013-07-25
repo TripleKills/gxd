@@ -5,6 +5,8 @@
     <string name="test_input">15210</string>
     <string name="action_settings">设置</string>
     <string name="action_about">关于</string>
+    <string name="action_feedback">反馈</string>
+    <string name="action_check_update">检查更新</string>
     <string name="about_summary">来去电归属地显示、归属地查询小程序, By Huxos: http://huxos.me !</string>
     
     <string name="setting_show_area_title">显示设置</string>

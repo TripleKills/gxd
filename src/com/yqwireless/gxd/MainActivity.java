@@ -7,12 +7,19 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.umeng.analytics.MobclickAgent;
+import com.umeng.fb.FeedbackAgent;
+import com.umeng.update.UmengUpdateAgent;
+import com.umeng.update.UmengUpdateListener;
+import com.umeng.update.UpdateResponse;
 import com.yqwireless.gxd.db.DBHelper;
 import com.yqwireless.gxd.entity.PhoneArea;
 
@@ -32,6 +39,22 @@ public class MainActivity extends Activity {
 		// 获得数据库连接
 		helper = DBHelper.getInstance(this);
 
+		FeedbackAgent agent = new FeedbackAgent(this);
+	    agent.sync();
+	    
+	    UmengUpdateAgent.update(this);
+	}
+	
+	@Override
+	protected void onResume() {
+		MobclickAgent.onResume(this);
+		super.onResume();
+	}
+	
+	@Override
+	protected void onPause() {
+		MobclickAgent.onPause(this);
+		super.onPause();
 	}
 
 	@Override
@@ -56,6 +79,43 @@ public class MainActivity extends Activity {
 			new AlertDialog.Builder(this).setTitle(R.string.action_about)
 					.setIcon(android.R.drawable.ic_dialog_info)
 					.setView(dialog_view).setPositiveButton("确定", null).show();
+			break;
+		case R.id.action_feedback:
+			FeedbackAgent agent = new FeedbackAgent(this);
+            agent.startFeedbackActivity();
+			break;
+		case R.id.action_check_update:
+			UmengUpdateListener updateListener = new UmengUpdateListener() {
+    			@Override
+    			public void onUpdateReturned(int updateStatus,
+    					UpdateResponse updateInfo) {
+    				Log.i("--->", "callback result =>" + updateStatus);
+    				switch (updateStatus) {
+    				
+    				case 0: // has update
+    					UmengUpdateAgent.showUpdateDialog(MainActivity.this, updateInfo);
+    					break;
+    				case 1: // has no update
+    					Toast.makeText(MainActivity.this, "已是最新版本", Toast.LENGTH_SHORT)
+    							.show();
+    					break;
+    				case 2: // none wifi
+    	                Toast.makeText(MainActivity.this, "没有wifi连接， 只在wifi下更新", Toast.LENGTH_SHORT)
+    	                        .show();
+    	                break;
+    	            case 3: // time out
+    	                Toast.makeText(MainActivity.this, "检查更新超时", Toast.LENGTH_SHORT)
+    	                        .show();
+    	                break;
+    				}
+
+    			}
+    		};
+        	UmengUpdateAgent.update(this);
+        	UmengUpdateAgent.setUpdateAutoPopup(false);
+        	UmengUpdateAgent.setUpdateListener(updateListener);
+        	Toast.makeText(this, "正在检查更新...", Toast.LENGTH_SHORT)
+			.show();
 			break;
 		}
 		return true;
