@@ -76,7 +76,7 @@ public class MainActivity extends Activity {
 			break;
 		// 关于菜单
 		case R.id.action_about:
-			LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
+			/*LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
 			final View dialog_view = inflater.inflate(R.layout.dialog_view,
 					null);
 			TextView about_text_versoin = (TextView) dialog_view
@@ -86,7 +86,8 @@ public class MainActivity extends Activity {
 			about_text_versoin.setText(about_version);
 			new AlertDialog.Builder(this).setTitle(R.string.action_about)
 					.setIcon(android.R.drawable.ic_dialog_info)
-					.setView(dialog_view).setPositiveButton("确定", null).show();
+					.setView(dialog_view).setPositiveButton("确定", null).show();*/
+			showAbout();
 			break;
 		case R.id.action_feedback:
 			FeedbackAgent agent = new FeedbackAgent(this);
@@ -128,6 +129,26 @@ public class MainActivity extends Activity {
 			break;
 		}
 		return true;
+	}
+	
+	private void showAbout() {
+		BaseDialog dialog = new CustomDialog2(MainActivity.this);
+		
+		View v = LayoutInflater.from(getApplicationContext()).inflate(R.layout.about, null);
+		String version = getString(R.string.version) + ": " + getVersionName();
+		String weibo = getString(R.string.weibo) + ": " + getString(R.string.weibo_content);
+		String email = getString(R.string.email) + ": " + getString(R.string.email_content);
+		String title = getString(R.string.about);
+		TextView versionT = (TextView) v.findViewById(R.id.about_version);
+		TextView weiboT = (TextView) v.findViewById(R.id.about_weibo);
+		TextView emailT = (TextView) v.findViewById(R.id.about_email);
+		TextView titleT = (TextView) v.findViewById(R.id.about_title);
+		versionT.setText(version);
+		weiboT.setText(weibo);
+		emailT.setText(email);
+		titleT.setText(title);
+		dialog.setContentView(v);
+		dialog.show();
 	}
 
 	private String getVersionName() {
