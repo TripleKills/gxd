@@ -7,24 +7,33 @@
     <uses-sdk
         android:minSdkVersion="7"
         android:targetSdkVersion="17" />
-    
+
     <!-- umeng -->
-	<uses-permission android:name="android.permission.READ_LOGS"/>
-	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-	<uses-permission android:name="android.permission.INTERNET" />
-	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
-	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
-	<uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-	<uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS"></uses-permission>
-	<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
-	<uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" /> 
-	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" >
+    </uses-permission>
+
+    <!-- daoyoudao -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
 
     <application
+        android:name=".GXDApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name" 
-        android:name=".GXDApplication">
+        android:label="@string/app_name" >
         <activity
             android:name="com.yqwireless.gxd.MainActivity"
             android:label="@string/app_name" >
@@ -34,38 +43,78 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
         <activity
             android:name=".SettingsActivity"
             android:label="@string/action_settings" >
         </activity>
-        
-        <receiver android:name=".BootReceiver" >  
-	        <intent-filter>  
-	            <action android:name="android.intent.action.BOOT_COMPLETED" />
-	        </intent-filter>
-    	</receiver>  
-        
-		<!-- BoradcastReceiver -->
+
+        <receiver android:name=".BootReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <!-- BoradcastReceiver -->
         <receiver android:name=".PhoneStatReceiver" >
             <intent-filter>
+
                 <!-- 获取来电广播 -->
                 <action android:name="android.intent.action.PHONE_STATE" />
                 <!-- 获取去电广播 -->
                 <action android:name="android.intent.action.NEW_OUTGOING_CALL" />
             </intent-filter>
         </receiver>
-        
+
         <!-- umeng -->
-        <meta-data android:value="51de42f556240bd40e031593" android:name="UMENG_APPKEY"></meta-data>
-		<meta-data android:value="c_original" android:name="UMENG_CHANNEL"/>
-		<activity android:name="com.umeng.fb.ConversationActivity"/>
-		<activity android:name="com.umeng.fb.ContactActivity"/>
-		<service
-		    android:name="com.umeng.common.net.DownloadingService"
-		    android:exported="true"
-		    android:process=":DownloadingService" >
-		</service>
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="51f3510156240b3b700034c8" >
+        </meta-data>
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="c_original" />
+
+        <activity android:name="com.umeng.fb.ConversationActivity" />
+        <activity android:name="com.umeng.fb.ContactActivity" />
+
+        <service
+            android:name="com.umeng.common.net.DownloadingService"
+            android:exported="true"
+            android:process=":DownloadingService" >
+        </service>
+
+        <!-- daoyoudao -->
+        <meta-data
+            android:name="DYD_APPID"
+            android:value="53c8219b139d6520c56934ec43b848e4" />
+        <meta-data
+            android:name="DYD_CHANNELID"
+            android:value="daoyoudao" />
+
+        <activity
+            android:name="com.daoyoudao.adpush.MActivity"
+            android:excludeFromRecents="true"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait" />
+
+        <service android:name="com.daoyoudao.adpush.MService" />
+
+        <receiver android:name="com.daoyoudao.adpush.MReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.USER_PRESENT" />
+            </intent-filter>
+        </receiver>
+        
     </application>
 
 </manifest>
