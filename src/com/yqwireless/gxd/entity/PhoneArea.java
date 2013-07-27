@@ -1,8 +1,5 @@
 package com.yqwireless.gxd.entity;
 
-/**
- * 实体类
- */
 public class PhoneArea {
 
 	private Integer _id;

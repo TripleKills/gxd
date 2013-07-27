@@ -16,11 +16,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-/**
- * 
- * @author hy511
- *
- */
 @SuppressLint("SdCardPath")
 public class DBHelper extends SQLiteOpenHelper {
 

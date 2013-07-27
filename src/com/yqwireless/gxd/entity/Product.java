@@ -1,10 +1,5 @@
 package com.yqwireless.gxd.entity;
 
-/**
- * 实体类
- * @author hy511
- *
- */
 public class Product {
 
 	private String phonenum;
