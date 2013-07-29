@@ -16,8 +16,8 @@
     <string name="version">软件版本</string>
     <string name="version_content">1.0</string>
     
-    <string name="setting_show_area_title">显示设置</string>
-    <string name="setting_show_area">归属地显示设置</string>
+    <string name="setting_show_area_title">归属地显示设置</string>
+    <string name="setting_show_area">显示归属地</string>
     <string name="setting_show_area_call_out">去电显示归属地</string>
     <string name="setting_show_area_call_in">来电显示归属地</string>
     <string name="setting_show_area_call_in_summary">当有电话呼入时在界面显示号码归属地信息</string>
