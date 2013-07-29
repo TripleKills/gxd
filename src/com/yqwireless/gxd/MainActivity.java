@@ -166,9 +166,9 @@ public class MainActivity extends Activity {
 
 	public void onBtnClick(View view) {
 		switch (view.getId()) {
-		case R.id.deleteButton:
+		/*case R.id.deleteButton:
 			delChar();
-			break;
+			break;*/
 		case R.id.btn_del:
 			delChar();
 			break;

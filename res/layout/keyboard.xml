@@ -60,9 +60,9 @@
     <LinearLayout style="@style/keyboard_row" >
 
         <Button
-            android:id="@+id/btn_del"
+            android:id="@+id/btn_clear"
             style="@style/keyboard_button"
-            android:text="del" />
+            android:text="clear" />
 
         <Button
             android:id="@+id/btn0"
@@ -70,9 +70,9 @@
             android:text="0" />
 
         <Button
-            android:id="@+id/btn_clear"
+            android:id="@+id/btn_del"
             style="@style/keyboard_button"
-            android:text="clear" />
+            android:text="x" />
     </LinearLayout>
 
 </LinearLayout>

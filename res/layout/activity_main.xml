@@ -10,8 +10,7 @@
             android:layout_height="46dip"
             android:layout_marginTop="2dip"
             android:layout_marginBottom="2dip"
-            android:gravity="center"
-            android:background="@drawable/dialpad_background" >
+            android:gravity="center">
 
         <TextView
                 android:id="@+id/digits"
@@ -21,21 +20,10 @@
                 android:gravity="center"
                 android:scrollHorizontally="true"
                 android:textAppearance="@style/DigitsTextAppearance"
-                android:nextFocusRight="@+id/deleteButton"
                 android:background="@android:color/transparent"
+                android:textColor="@android:color/white"
                 />
 
-        <ImageButton
-                android:id="@+id/deleteButton"
-                android:layout_width="56dip"
-                android:layout_height="fill_parent"
-                android:layout_gravity="center_vertical"
-                android:gravity="center"
-                android:state_enabled="false"
-                android:src="@drawable/ic_dial_action_delete"
-                android:background="@android:color/transparent"
-                android:onClick="onBtnClick"
-                android:contentDescription="@string/delete_button_descrition"/>
     </LinearLayout>
     
     <LinearLayout
