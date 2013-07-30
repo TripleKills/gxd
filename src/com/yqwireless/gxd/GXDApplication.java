@@ -1,5 +1,7 @@
 package com.yqwireless.gxd;
 
+import net.youmi.android.AdManager;
+
 import org.json.JSONObject;
 
 import android.app.Application;
@@ -26,6 +28,8 @@ public class GXDApplication extends Application {
 		initMetadata();
 		configUmeng();
 		configFirstLaunch();
+		AdManager.getInstance(this).init("d51ffb5bdeae15c5",
+				"30c87d895741f20a", false);
 	}
 
 	private void configFirstLaunch() {

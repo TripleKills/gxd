@@ -1,9 +1,9 @@
 package com.yqwireless.gxd;
 
-import com.umeng.analytics.MobclickAgent;
-
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
+
+import com.umeng.analytics.MobclickAgent;
 
 public class SettingsActivity extends PreferenceActivity{
 

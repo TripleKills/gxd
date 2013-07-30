@@ -2,6 +2,8 @@ package com.yqwireless.gxd;
 
 import java.util.Locale;
 
+import net.youmi.android.banner.AdSize;
+import net.youmi.android.banner.AdView;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -14,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,6 +46,12 @@ public class MainActivity extends Activity {
 		agent.sync();
 
 		UmengUpdateAgent.update(this);
+		
+		// 广告条接口调用        
+        // 将广告条adView添加到需要展示的layout控件中
+        LinearLayout adLayout = (LinearLayout) findViewById(R.id.adLayout);
+        AdView adView = new AdView(this, AdSize.SIZE_320x50);
+        adLayout.addView(adView);
 	}
 
 	@Override
