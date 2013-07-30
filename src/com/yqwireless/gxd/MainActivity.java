@@ -3,7 +3,6 @@ package com.yqwireless.gxd;
 import java.util.Locale;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -23,8 +22,6 @@ import com.umeng.fb.FeedbackAgent;
 import com.umeng.update.UmengUpdateAgent;
 import com.umeng.update.UmengUpdateListener;
 import com.umeng.update.UpdateResponse;
-import com.yqwireless.gxd.db.DBHelper;
-import com.yqwireless.gxd.entity.PhoneArea;
 
 public class MainActivity extends Activity {
 	private TextView mInput, show_text;

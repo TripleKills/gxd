@@ -17,15 +17,6 @@ import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
 import android.widget.TextView;
 
-import com.yqwireless.gxd.db.DBHelper;
-import com.yqwireless.gxd.entity.PhoneArea;
-
-/**
- * 接收来去电广播
- * 
- * @author hy511
- * 
- */
 public class PhoneStatReceiver extends BroadcastReceiver {
 
 	private static final String TAG = "PhoneStatReceiver";
